@@ -1,6 +1,7 @@
 package com.algorithms.algorithms.basic;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Strings {
 
@@ -29,5 +30,44 @@ public class Strings {
             result = left == right;
         }
         return result;
+    }
+
+    // find the longest substring with no repeated characters and return the lenght of it
+    public static int longestSubstring(String s) {
+        int result = 0;
+        Map<Character, Integer> map = new HashMap<>();
+        int i = 0;
+        int j = 0;
+        while (j < s.length()) {
+            char ch = s.charAt(j);
+            if (map.containsKey(ch)) {
+                i = Math.max(map.get(ch), i);
+            }
+            result = Math.max(result, j - i + 1);
+            map.put(ch, j + 1);
+            j++;
+        }
+        return result;
+    }
+
+    // find out if one can construct the string ransomeNote from the string magazine
+    public static boolean ransomeNoteHashMap(String ransomNote, String magazine) {
+        HashMap<Character, Integer> letterCounts = new HashMap<>();
+
+        for (int i = 0; i < magazine.length(); i++) {
+            Character key = magazine.charAt(i);
+            int count = letterCounts.getOrDefault(key, 0);
+            letterCounts.put(magazine.charAt(i), ++count);
+        }
+
+        for (int i = 0; i < ransomNote.length(); i++) {
+            Character key = magazine.charAt(i);
+            int count = letterCounts.getOrDefault(key, 0);
+            letterCounts.put(magazine.charAt(i), --count);
+            if (count < 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }

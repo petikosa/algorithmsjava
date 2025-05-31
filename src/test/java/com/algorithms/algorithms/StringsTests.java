@@ -70,4 +70,54 @@ public class StringsTests {
         // then
         assertThat(result).isFalse();
     }
+
+    @Test
+    void findLongestSubstring() {
+        // given
+        String a = "asdbjoiabs";
+
+        // when
+        int result = Strings.longestSubstring(a);
+
+        // then
+        assertThat(result).isEqualTo(7);
+    }
+
+    @Test
+    void findLongestSubstringOfLengthOne() {
+        // given
+        String a = "aaaaaaaa";
+
+        // when
+        int result = Strings.longestSubstring(a);
+
+        // then
+        assertThat(result).isEqualTo(1);
+    }
+
+    @Test
+    void ransomeNoteCanBeConstructedFromMagazine() {
+        // given
+        String magazine = "A man has been assasinated";
+        String ransoneNote = "man has assasinated A bee";
+
+        // when
+        boolean result = Strings.ransomeNoteHashMap(ransoneNote, magazine);
+
+        // then
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    void ransomeNoteCannotBeConstructedFromMagazine() {
+        // given
+        String magazine = "A man has been assasinated";
+        String ransoneNote = "The bee has revanged";
+
+        // when
+        boolean result = Strings.ransomeNoteHashMap(ransoneNote, magazine);
+
+        // then
+        assertThat(result).isTrue();
+    }
 }
