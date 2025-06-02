@@ -1,8 +1,11 @@
 package com.algorithms.algorithms.basic;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
-public class Arrays {
+public class ArrayAlgos {
 
     // find indexes of two numbers which sum to target
     public static int[] twoSum(int[] nums, int target) {
@@ -41,4 +44,25 @@ public class Arrays {
         return bestSum;
     }
 
+    // merge overlapping 2-array intervals
+    public static int[][] mergeIntervals(int[][] intervals) {
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        List<int[]> mergedIntervals = new ArrayList<>();
+        mergedIntervals.add(intervals[0]);
+
+        for (int i = 1; i < intervals.length; ++i) {
+            int start = intervals[i][0];
+            int end = intervals[i][1];
+
+            int[] lastMergedInterval = mergedIntervals.getLast();
+
+            if (lastMergedInterval[1] < start) {
+                mergedIntervals.add(intervals[i]);
+            } else {
+                lastMergedInterval[1] = Math.max(lastMergedInterval[1], end);
+            }
+        }
+
+        return mergedIntervals.toArray(new int[mergedIntervals.size()][]);
+    }
 }
